@@ -4,6 +4,7 @@
     ConnectButton,
     walletAdapter
   } from '@builders-of-stuff/svelte-sui-wallet-adapter';
+  import confetti from 'canvas-confetti';
 
   let fileInput;
   let parsedData = [];
@@ -28,6 +29,11 @@
   function pickWinner() {
     // Implement your random picker logic here
     // For now, we'll just pick a random item from the list
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
     const values = manualInput
       .split(',')
       .map((item) => item.trim())
@@ -46,7 +52,7 @@
 
   <p class="mb-6 text-gray-600">
     Select a random winner from a list of comma-separated values, either uploaded from
-    an excel file or manually entered. On-chain randomness is provided by Sui (so wallet
+    an excel file or manually entered. On-chain randomness is provided by Sui (wallet
     connection and gas fees are required).
   </p>
 
@@ -77,12 +83,7 @@
     ></textarea>
   </div>
 
-  <button
-    on:click={pickWinner}
-    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-  >
-    Connect
-  </button>
+  <ConnectButton {walletAdapter} />
 
   <button
     on:click={pickWinner}
@@ -99,7 +100,7 @@
   {/if}
 
   <a
-    href="https://github.com/your-github-repo"
+    href="https://github.com/builders-of-stuff/suiprise"
     target="_blank"
     rel="noopener noreferrer"
     class="absolute bottom-4 right-4"
