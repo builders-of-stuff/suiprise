@@ -26,6 +26,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.36.0",
     "globals": "^15.0.0",
+    "postcss": "^8.4.38",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
@@ -40,7 +41,9 @@
   "type": "module",
   "dependencies": {
     "@builders-of-stuff/svelte-sui-wallet-adapter": "^1.1.0",
+    "bits-ui": "^0.21.15",
     "clsx": "^2.1.1",
+    "svelte-radix": "^1.1.1",
     "tailwind-merge": "^2.5.2",
     "tailwind-variants": "^0.2.1",
     "xlsx": "^0.18.5"

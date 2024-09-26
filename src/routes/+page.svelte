@@ -1,5 +1,9 @@
 <script>
   import { read, utils } from 'xlsx';
+  import {
+    ConnectButton,
+    walletAdapter
+  } from '@builders-of-stuff/svelte-sui-wallet-adapter';
 
   let fileInput;
   let parsedData = [];
@@ -68,8 +72,8 @@
       id="manualInput"
       bind:value={manualInput}
       rows="4"
-      class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-      placeholder="Enter values separated by commas"
+      class="mt-1 block w-full rounded-md border border-gray-300 px-2 py-1 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+      placeholder="e.g. Alice, Bob, Charlie"
     ></textarea>
   </div>
 
