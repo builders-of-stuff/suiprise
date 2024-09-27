@@ -5,6 +5,7 @@
     walletAdapter
   } from '@builders-of-stuff/svelte-sui-wallet-adapter';
   import confetti from 'canvas-confetti';
+  import { pickRandomWinner } from '$lib/sdk/sdk';
 
   let fileInput = $state();
   let parsedData = [];
@@ -19,7 +20,7 @@
     const reader = new FileReader();
 
     reader.onload = (e) => {
-      const data = new Uint8Array(e.target.result);
+      const data = new Uint8Array(e?.target?.result);
       const workbook = read(data, { type: 'array' });
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       parsedData = utils.sheet_to_json(worksheet, { header: 1 });
@@ -29,24 +30,22 @@
     reader.readAsArrayBuffer(file);
   }
 
-  function pickWinner() {
-    // Implement your random picker logic here
-    // For now, we'll just pick a random item from the list
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-    const values = manualInput
-      .split(',')
-      .map((item) => item.trim())
-      .filter((item) => item !== '');
-    if (values.length > 0) {
-      const randomIndex = Math.floor(Math.random() * values.length);
-      winner = values[randomIndex];
-    } else {
-      winner = 'No entries to pick from';
-    }
+  async function pickWinner() {
+    await pickRandomWinner(numberOfEntries)
+      .then((response) => {
+        console.log('response: ', response);
+
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+
+        return response;
+      })
+      .catch((error) => {
+        console.error('error: ', error);
+      });
   }
 </script>
 
