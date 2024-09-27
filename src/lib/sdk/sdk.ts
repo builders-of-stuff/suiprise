@@ -1,8 +1,6 @@
 import { SUIPRISE_PACKAGE_ID } from '$lib/shared/shared.constant';
-import { devnetWalletAdapter } from '@builders-of-stuff/svelte-sui-wallet-adapter';
+import { walletAdapter } from '@builders-of-stuff/svelte-sui-wallet-adapter';
 import { Transaction } from '@mysten/sui/transactions';
-
-const walletAdapter = devnetWalletAdapter;
 
 export const pickRandomWinner = async (numberOfEntries: number) => {
   if (!walletAdapter?.currentAccount?.address) {
