@@ -67,7 +67,7 @@
       id="fileInput"
       type="file"
       accept=".xlsx, .xls"
-      on:change={handleFileUpload}
+      onchange={handleFileUpload}
       bind:this={fileInput}
       class="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
     />
@@ -93,7 +93,7 @@
   <ConnectButton {walletAdapter} />
 
   <button
-    on:click={pickWinner}
+    onclick={pickWinner}
     class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:text-gray-500"
     disabled={!walletAdapter.isConnected}
   >
