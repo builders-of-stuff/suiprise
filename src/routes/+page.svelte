@@ -6,10 +6,13 @@
   } from '@builders-of-stuff/svelte-sui-wallet-adapter';
   import confetti from 'canvas-confetti';
 
-  let fileInput;
+  let fileInput = $state();
   let parsedData = [];
-  let manualInput = '';
-  let winner = 'dfads';
+  let manualInput = $state('');
+  let winner = $state('');
+
+  const entries = $derived(manualInput?.split(',')?.filter?.(Boolean));
+  const numberOfEntries = $derived(entries?.length);
 
   function handleFileUpload(event) {
     const file = event.target.files[0];
@@ -72,22 +75,27 @@
 
   <div class="mb-4">
     <label for="manualInput" class="mb-2 block text-sm font-medium text-gray-700"
-      >Enter Values (comma-separated)</label
+      >Enter values (comma-separated)</label
     >
     <textarea
       id="manualInput"
       bind:value={manualInput}
-      rows="4"
+      rows="10"
       class="mt-1 block w-full rounded-md border border-gray-300 px-2 py-1 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
       placeholder="e.g. Alice, Bob, Charlie"
     ></textarea>
+
+    {#if numberOfEntries > 0}
+      <p class="mt-2 text-sm text-gray-500">{numberOfEntries} entries</p>
+    {/if}
   </div>
 
   <ConnectButton {walletAdapter} />
 
   <button
     on:click={pickWinner}
-    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:text-gray-500"
+    disabled={!walletAdapter.isConnected}
   >
     Pick Winner
   </button>
