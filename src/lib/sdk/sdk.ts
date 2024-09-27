@@ -1,3 +1,4 @@
+import { SUIPRISE_PACKAGE_ID } from '$lib/shared/shared.constant';
 import { devnetWalletAdapter } from '@builders-of-stuff/svelte-sui-wallet-adapter';
 import { Transaction } from '@mysten/sui/transactions';
 
@@ -10,13 +11,10 @@ export const pickRandomWinner = async (numberOfEntries: number) => {
 
   const tx = new Transaction();
 
-  // starts at 1
-  const [winnerIndex] = tx.moveCall({
-    target: `<package>::random::pick_random_winner`,
+  tx.moveCall({
+    target: `${SUIPRISE_PACKAGE_ID}::random::pick_random_winner`,
     arguments: [tx.pure.u32(numberOfEntries), tx.object('0x8')]
   });
-
-  console.log('winnerIndex: ', winnerIndex);
 
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,6 +31,8 @@ export const pickRandomWinner = async (numberOfEntries: number) => {
         showRawInput: true
       }
     });
+
+    // const winnerIndex =
 
     return { executedTx };
   } catch (error) {

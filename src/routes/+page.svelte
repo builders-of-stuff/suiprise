@@ -2,7 +2,7 @@
   import { read, utils } from 'xlsx';
   import {
     ConnectButton,
-    walletAdapter
+    devnetWalletAdapter as walletAdapter
   } from '@builders-of-stuff/svelte-sui-wallet-adapter';
   import confetti from 'canvas-confetti';
   import { pickRandomWinner } from '$lib/sdk/sdk';
