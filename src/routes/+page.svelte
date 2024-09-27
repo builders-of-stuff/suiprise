@@ -2,7 +2,7 @@
   import { read, utils } from 'xlsx';
   import {
     ConnectButton,
-    devnetWalletAdapter as walletAdapter
+    walletAdapter
   } from '@builders-of-stuff/svelte-sui-wallet-adapter';
   import confetti from 'canvas-confetti';
   import { pickRandomWinner } from '$lib/sdk/sdk';
@@ -14,6 +14,10 @@
 
   const entries = $derived(manualInput?.split(',')?.filter?.(Boolean));
   const numberOfEntries = $derived(entries?.length);
+
+  // $effect(() => {
+  //   console.log('entries: ', entries);
+  // });
 
   function handleFileUpload(event) {
     const file = event.target.files[0];
@@ -32,16 +36,14 @@
 
   async function pickWinner() {
     await pickRandomWinner(numberOfEntries)
-      .then((response) => {
-        console.log('response: ', response);
+      .then(({ winnerIndex }) => {
+        winner = entries[winnerIndex];
 
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 }
         });
-
-        return response;
       })
       .catch((error) => {
         console.error('error: ', error);

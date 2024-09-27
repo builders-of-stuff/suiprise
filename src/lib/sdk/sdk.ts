@@ -32,9 +32,11 @@ export const pickRandomWinner = async (numberOfEntries: number) => {
       }
     });
 
-    // const winnerIndex =
+    const winnerIndex = executedTx?.events?.find?.(
+      (event) => event.type === `${SUIPRISE_PACKAGE_ID}::random::RandomWinnerEvent`
+    )?.parsedJson?.winner_index;
 
-    return { executedTx };
+    return { winnerIndex };
   } catch (error) {
     console.error(error);
   }
